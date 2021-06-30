@@ -81,6 +81,8 @@ function moveForward(rover) {
                 return;
             }
         break;
+
+        /* ******* Probleme Splice suppression ancienne position dans le cas W ********** */
         case "W" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
             if (rover.x >= 1) { /* Condition pour empecher la variable de sortir de l'array */
@@ -132,6 +134,8 @@ function moveBackward(rover) {
                 return;
             }
         break;
+
+         /* ******* Probleme Splice suppression ancienne position dans le cas W ********** */
         case "W" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
             if (rover.x < 9) { /* Condition pour empecher la variable de sortir de l'array */
