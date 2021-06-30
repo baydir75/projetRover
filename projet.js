@@ -40,7 +40,7 @@ function turnLeft(rover) {
             rover.direction = "N";
             console.log(rover.direction);
         break;
-        default: "Erreur d'input"
+        default: console.log("Erreur d'input");
     }
 }
 
@@ -63,7 +63,7 @@ function turnRight(rover) {
             rover.direction = "N";
             console.log(rover.direction);
         break;
-        default: "Erreur d'input"
+        default: console/log("Erreur d'input");
     }
 }
 
@@ -80,7 +80,7 @@ function moveForward(rover) {
         break;
         case "W" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
-            rover.x -= 1; /* Fait changer la position d'un array */
+            rover.x -= 1; /* Fait changer la position dans array */
             grid[rover.y].splice([rover.x], 0, rover.direction);
             grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
             console.log(rover.x);
@@ -94,12 +94,12 @@ function moveForward(rover) {
         break;
         case "E" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
-            rover.x += 1; /* Fait changer la position d'un array */
+            rover.x += 1; /* Fait changer la position dans un array */
             grid[rover.y].splice([rover.x], 0, rover.direction);
             grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
             console.log(rover.x);
         break;
-        default: "Erreur";
+        default: console.log("Erreur");
     }
 }
 
@@ -118,7 +118,7 @@ function pilotRover(string) {
         console.table(grid);
         console.log(rover.travelLog);
         break;
-        default : "Input invalide";
+        default : console.log("Input invalide");
     }
 }
 
@@ -130,6 +130,7 @@ function userCommand() {
         pilotRover(res.input.toUpperCase());
         userCommand();
         }
+        /* Entrez "exit" dans le prompt pour quitter */
     })
 }
 
