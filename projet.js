@@ -69,35 +69,101 @@ function turnRight(rover) {
 
 /* Fonction pour faire avancer le Rover d'une case */
 function moveForward(rover) {
-    console.log(rover);
     switch (rover.direction) {
         case "N" :
             rover.travelLog.push([rover.y, rover.x]); /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.y >= 1) { /* Condition pour empecher la variable de sortir de l'array */
             rover.y -= 1; /* Fait changer d'array */
-            grid[rover.y].splice([rover.x], 0, rover.direction);
+            grid[rover.y ].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y + 1].splice([rover.x], 1, ""); /* Supprime l'ancienne valeur */
             grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
-            console.log(rover.y);
+            } else {
+                return;
+            }
         break;
         case "W" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.x >= 1) { /* Condition pour empecher la variable de sortir de l'array */
             rover.x -= 1; /* Fait changer la position dans array */
-            grid[rover.y].splice([rover.x], 0, rover.direction);
+            grid[rover.y].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y].splice([rover.x - 1], 1, ""); /* Supprime l'ancienne valeur */
             grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
-            console.log(rover.x);
+            } else {
+                return;
+            }
         break;
         case "S" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.y < 9) { /* Condition pour empecher la variable de sortir de l'array */
             rover.y += 1; /* Fait changer d'array */
-            grid[rover.y].splice([rover.x], 0, rover.direction);
+            grid[rover.y].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y - 1].splice([rover.x], 1, ""); /* Supprime l'ancienne valeur */
             grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
-            console.log(rover.y);
+            } else {
+                return;
+            }
         break;
         case "E" :
             rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.x < 9) { /* Condition pour empecher la variable de sortir de l'array */
             rover.x += 1; /* Fait changer la position dans un array */
-            grid[rover.y].splice([rover.x], 0, rover.direction);
+            grid[rover.y].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y].splice([rover.x - 1], 1, ""); /* Supprime l'ancienne valeur */
             grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
-            console.log(rover.x);
+            } else {
+                return;
+            }
+        break;
+        default: console.log("Erreur");
+    }
+}
+
+/* Fonction pour faire avancer le Rover */
+function moveBackward(rover) {
+    switch (rover.direction) {
+        case "N" :
+            rover.travelLog.push([rover.y, rover.x]); /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.y < 9) { /* Condition pour empecher la variable de sortir de l'array */
+            rover.y += 1; /* Fait changer d'array */
+            grid[rover.y ].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y - 1].splice([rover.x], 1, ""); /* Supprime l'ancienne valeur */
+            grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
+            } else {
+                return;
+            }
+        break;
+        case "W" :
+            rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.x < 9) { /* Condition pour empecher la variable de sortir de l'array */
+            rover.x += 1; /* Fait changer la position dans array */
+            grid[rover.y].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y].splice(r[rover.x - 1], 1, ""); /* Supprime l'ancienne valeur */
+            grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
+            } else {
+                return;
+            }
+        break;
+        case "S" :
+            rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.y >= 1) { /* Condition pour empecher la variable de sortir de l'array */
+            rover.y -= 1; /* Fait changer d'array */
+            grid[rover.y].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y + 1].splice([rover.x], 1, ""); /* Supprime l'ancienne valeur */
+            grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
+            } else {
+                return;
+            }
+        break;
+        case "E" :
+            rover.travelLog.push([rover.y, rover.x]);  /* Inscrit dans le log la position du Rover sur le grid */
+            if (rover.x >= 1) { /* Condition pour empecher la variable de sortir de l'array */
+            rover.x -= 1; /* Fait changer la position dans un array */
+            grid[rover.y].splice([rover.x], 0, rover.direction); /* Nouvelle position Rover sur le grid */
+            grid[rover.y].splice([rover.x - 1], 1, ""); /* Supprime l'ancienne valeur */
+            grid[rover.y].pop(); /* Supprime la derniere case de l'array rajoutée par le .splice */
+            } else {
+                return;
+            }
         break;
         default: console.log("Erreur");
     }
@@ -106,18 +172,22 @@ function moveForward(rover) {
 /* Fonction pour que l'utilisateur intéragisse avec le Rover sur la grid */
 function pilotRover(string) {
     switch (string) {
-        case "L" : turnLeft(rover);
-        console.table(grid);
-        console.log(rover.travelLog);
+        case "L" :
+            turnLeft(rover);
+            console.table(grid);
         break;
-        case "R" : turnRight(rover);
-        console.table(grid);
-        console.log(rover.travelLog);
+        case "R" :
+            turnRight(rover);
+            console.table(grid);
         break;
-        case "F" : moveForward(rover);
-        console.table(grid);
-        console.log(rover.travelLog);
+        case "F" :
+            moveForward(rover);
+            console.table(grid);
         break;
+        case "B" :
+            moveBackward(rover);
+            console.table(grid);
+            break;
         default : console.log("Input invalide");
     }
 }
